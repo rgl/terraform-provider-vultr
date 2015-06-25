@@ -229,6 +229,8 @@ func resourceVultrServerRead(d *schema.ResourceData, meta interface{}) error {
 func resourceVultrServerUpdate(d *schema.ResourceData, meta interface{}) error {
 	client := meta.(*lib.Client)
 
+	d.Partial(true)
+
 	if d.HasChange("name") {
 		oldName, newName := d.GetChange("name")
 
