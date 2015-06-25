@@ -198,6 +198,12 @@ func resourceVultrServerRead(d *schema.ResourceData, meta interface{}) error {
 
 	server, err := client.GetServer(d.Id())
 	if err != nil {
+		// check if the server not longer exists.
+		if err.Error() == "Invalid server." {
+			d.SetId("")
+			return nil
+		}
+
 		return fmt.Errorf("Error retrieving server: %s", err)
 	}
 
