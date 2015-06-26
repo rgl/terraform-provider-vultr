@@ -18,7 +18,8 @@ func Provider() terraform.ResourceProvider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"vultr_server": resourceVultrServer(),
+			"vultr_server":  resourceVultrServer(),
+			"vultr_ssh_key": resourceVultrSSHKey(),
 		},
 
 		ConfigureFunc: providerConfigure,

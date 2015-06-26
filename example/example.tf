@@ -2,8 +2,19 @@
 #	api_key = "TODO_SET_TO_YOUR_API_KEY__OR__THE_VULTR_API_KEY_ENV_VARIABLE"
 #}
 
+resource "vultr_ssh_key" "example" {
+	name = "example created from terraform"
+
+	# get the public key from a local file.
+	#
+	# create the example_rsa.pub file with:
+	#
+	#	ssh-keygen -t rsa -b 4096 -C 'terraform example' -f example_rsa -N ''
+	public_key = "${file("example_rsa.pub")}"
+}
+
 resource "vultr_server" "example" {
-	name = "created from terraform"
+	name = "example created from terraform"
 
 	# set the region. 7 is Amsterdam.
 	# get the list of regions with the command: vultr regions
@@ -24,8 +35,7 @@ resource "vultr_server" "example" {
 	private_networking = true
 
 	# enable one or more ssh keys on the root account.
-	# get the list of keys with the command: vultr sshkeys
-	ssh_key_ids = ["55586a7173780"]
+	ssh_key_ids = ["${vultr_ssh_key.example.id}"]
 
 	# execute a command on the local machine.
 	provisioner "local-exec" {
