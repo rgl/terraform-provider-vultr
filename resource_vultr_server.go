@@ -60,12 +60,14 @@ func resourceVultrServer() *schema.Resource {
 				ForceNew: true,
 			},
 
+			// if you are using this make sure you set `os_id` to `159` (Custom).
 			"ipxe_chain_url": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
+				ForceNew: true,
 			},
 
-			// if you are using an iso make sure you set `os_id` to `159` (Custom).
+			// if you are using this make sure you set `os_id` to `159` (Custom).
 			"iso_id": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -90,6 +92,7 @@ func resourceVultrServer() *schema.Resource {
 			"ssh_key_ids": &schema.Schema{
 				Type:     schema.TypeList,
 				Optional: true,
+				ForceNew: true,
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 
@@ -106,6 +109,7 @@ func resourceVultrServer() *schema.Resource {
 			"ipv6": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
+				ForceNew: true,
 			},
 
 			"ipv6_address": &schema.Schema{
@@ -116,6 +120,7 @@ func resourceVultrServer() *schema.Resource {
 			"private_networking": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
+				ForceNew: true,
 			},
 
 			"auto_backups": &schema.Schema{
