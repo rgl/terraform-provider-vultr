@@ -259,10 +259,6 @@ func resourceVultrServerDelete(d *schema.ResourceData, meta interface{}) error {
 
 	err := client.DeleteServer(d.Id())
 
-	if err != nil && strings.Contains(err.Error(), "404 Not Found") {
-		return nil
-	}
-
 	if err != nil {
 		return fmt.Errorf("Error deleting server: %s", err)
 	}
