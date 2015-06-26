@@ -74,19 +74,10 @@ func resourceVultrServer() *schema.Resource {
 				ForceNew: true,
 			},
 
-			"script_id": &schema.Schema{
-				Type:     schema.TypeInt,
-				Optional: true,
-			},
-
 			"user_data": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
-			},
-
-			"snapshot_id": &schema.Schema{
-				Type:     schema.TypeString,
-				Optional: true,
+				ForceNew: true,
 			},
 
 			"ssh_key_ids": &schema.Schema{
