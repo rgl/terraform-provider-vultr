@@ -133,7 +133,6 @@ func resourceVultrServerCreate(d *schema.ResourceData, meta interface{}) error {
 	options := &lib.ServerOptions{
 		IPXEChainURL: d.Get("ipxe_chain_url").(string),
 		ISO:          d.Get("iso_id").(int),
-		Script:       d.Get("script_id").(int),
 		UserData:     d.Get("user_data").(string),
 		Snapshot:     d.Get("snapshot_id").(string),
 	}
