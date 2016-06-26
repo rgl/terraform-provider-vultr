@@ -103,11 +103,6 @@ func resourceVultrServer() *schema.Resource {
 				ForceNew: true,
 			},
 
-			"ipv6_address": &schema.Schema{
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-
 			"private_networking": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
@@ -209,7 +204,6 @@ func resourceVultrServerRead(d *schema.ResourceData, meta interface{}) error {
 	d.Set("power_status", server.PowerStatus)
 	d.Set("default_password", server.DefaultPassword)
 	d.Set("ipv4_address", server.MainIP)
-	d.Set("ipv6_address", server.MainIPV6)
 	d.Set("ipv4_private_address", server.InternalIP)
 
 	d.SetConnInfo(map[string]string{
