@@ -129,7 +129,6 @@ func resourceVultrServerCreate(d *schema.ResourceData, meta interface{}) error {
 		IPXEChainURL: d.Get("ipxe_chain_url").(string),
 		ISO:          d.Get("iso_id").(int),
 		UserData:     d.Get("user_data").(string),
-		Snapshot:     d.Get("snapshot_id").(string),
 	}
 
 	if attr, ok := d.GetOk("ipv6"); ok {
