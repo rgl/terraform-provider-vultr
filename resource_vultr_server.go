@@ -173,7 +173,7 @@ func resourceVultrServerCreate(d *schema.ResourceData, meta interface{}) error {
 			"Error waiting for server (%s) to become active: %s", d.Id(), err)
 	}
 
-	_, err = WaitForServerAttribute(d, "running", []string{"stopped"}, "power_status", meta)
+	_, err = WaitForServerAttribute(d, "running", []string{"starting", "stopped"}, "power_status", meta)
 	if err != nil {
 		return fmt.Errorf(
 			"Error waiting for server (%s) to become running: %s", d.Id(), err)
@@ -261,7 +261,7 @@ func WaitForServerAttribute(d *schema.ResourceData, target string, pending []str
 
 	stateConf := &resource.StateChangeConf{
 		Pending:    pending,
-		Target:     target,
+		Target:     []string{target},
 		Refresh:    newServerStateRefreshFunc(d, attribute, meta),
 		Timeout:    60 * time.Minute,
 		Delay:      10 * time.Second,
