@@ -27,7 +27,7 @@ resource "vultr_server" "example" {
 	# set the OS image. 179 is CoreOS Stable.
 	# get the list of OSs with the command: vultr os
 	os_id = 179
-	
+
 	# enable IPv6.
 	ipv6 = true
 
@@ -45,8 +45,8 @@ resource "vultr_server" "example" {
 	# execute commands on the remote machine.
 	provisioner "remote-exec" {
         inline = [
-			"env >> test.txt",
-			"ip addr >> test.txt",
+			"env",
+			"ip addr",
 		]
     }
 }
