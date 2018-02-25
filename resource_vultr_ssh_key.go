@@ -70,6 +70,7 @@ func resourceVultrSSHKeyRead(d *schema.ResourceData, meta interface{}) error {
 	for _, k := range keys {
 		if k.ID == d.Id() {
 			key = &k
+			break
 		}
 	}
 
