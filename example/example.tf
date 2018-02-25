@@ -54,15 +54,4 @@ resource "vultr_server" "example" {
   provisioner "local-exec" {
     command = "echo local-exec ${vultr_server.example.ipv4_address}"
   }
-
-  # execute commands on the remote machine.
-  provisioner "remote-exec" {
-    inline = [
-      "env",
-      "cat /etc/network/interfaces",
-      "ip addr",
-      "uname -a",
-      "df -h",
-    ]
-  }
 }
