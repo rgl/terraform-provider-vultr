@@ -60,6 +60,12 @@ func resourceVultrServer() *schema.Resource {
 				ForceNew: true,
 			},
 
+			"snapshot_id": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+
 			// if you are using this make sure you set `os_id` to `159` (Custom).
 			"ipxe_chain_url": &schema.Schema{
 				Type:     schema.TypeString,
@@ -129,6 +135,7 @@ func resourceVultrServerCreate(d *schema.ResourceData, meta interface{}) error {
 		IPXEChainURL: d.Get("ipxe_chain_url").(string),
 		ISO:          d.Get("iso_id").(int),
 		UserData:     d.Get("user_data").(string),
+		Snapshot:     d.Get("snapshot_id").(string),
 	}
 
 	if attr, ok := d.GetOk("ipv6"); ok {
