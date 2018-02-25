@@ -42,6 +42,12 @@ func resourceVultrServer() *schema.Resource {
 				Optional: true,
 			},
 
+			"hostname": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+			},
+
 			"region_id": &schema.Schema{
 				Type:     schema.TypeInt,
 				Required: true,
@@ -132,6 +138,7 @@ func resourceVultrServerCreate(d *schema.ResourceData, meta interface{}) error {
 	osId := d.Get("os_id").(int)
 
 	options := &lib.ServerOptions{
+		Hostname:     d.Get("hostname").(string),
 		IPXEChainURL: d.Get("ipxe_chain_url").(string),
 		ISO:          d.Get("iso_id").(int),
 		UserData:     d.Get("user_data").(string),
