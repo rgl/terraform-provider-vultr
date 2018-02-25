@@ -22,12 +22,18 @@ resource "vultr_ssh_key" "example" {
   public_key = "${file("example_rsa.pub")}"
 }
 
+resource "vultr_dns_domain" "example" {
+  # NB vultr does not allow sub-domains (e.g. vultr.example.com).
+  name = "vultr-example.com"
+  ipv4_address = "${vultr_server.example.ipv4_address}"
+}
+
 resource "vultr_server" "example" {
   name = "example created from terraform"
 
   tag = "example tag"
 
-  hostname = "test.example.com"
+  hostname = "test.vultr-example.com"
 
   # set the region. 1 is New Jersey.
   # get the list of regions with the command: vultr regions
