@@ -37,6 +37,11 @@ func resourceVultrServer() *schema.Resource {
 				Computed: true,
 			},
 
+			"tag": &schema.Schema{
+				Type:     schema.TypeString,
+				Optional: true,
+			},
+
 			"name": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
@@ -138,6 +143,7 @@ func resourceVultrServerCreate(d *schema.ResourceData, meta interface{}) error {
 	osId := d.Get("os_id").(int)
 
 	options := &lib.ServerOptions{
+		Tag:          d.Get("tag").(string),
 		Hostname:     d.Get("hostname").(string),
 		IPXEChainURL: d.Get("ipxe_chain_url").(string),
 		ISO:          d.Get("iso_id").(int),
@@ -211,6 +217,7 @@ func resourceVultrServerRead(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	d.Set("name", server.Name)
+	d.Set("tag", server.Tag)
 	d.Set("region_id", server.RegionID)
 	d.Set("plan_id", server.PlanID)
 	d.Set("status", server.Status)
@@ -249,6 +256,24 @@ func resourceVultrServerUpdate(d *schema.ResourceData, meta interface{}) error {
 		}
 
 		d.SetPartial("name")
+	}
+
+	if d.HasChange("tag") {
+		oldValue, newValue := d.GetChange("tag")
+
+		err := client.TagServer(d.Id(), newValue.(string))
+
+		if err != nil {
+			return fmt.Errorf("Error tagging the server (%s): %s", d.Id(), err)
+		}
+
+		_, err = WaitForServerAttribute(d, newValue.(string), []string{"", oldValue.(string)}, "tag", meta)
+
+		if err != nil {
+			return fmt.Errorf("Error waiting for tagging the server (%s) to finish: %s", d.Id(), err)
+		}
+
+		d.SetPartial("tag")
 	}
 
 	return resourceVultrServerRead(d, meta)
