@@ -33,8 +33,9 @@ func resourceVultrServer() *schema.Resource {
 			},
 
 			"default_password": &schema.Schema{
-				Type:     schema.TypeString,
-				Computed: true,
+				Type:      schema.TypeString,
+				Computed:  true,
+				Sensitive: true,
 			},
 
 			"tag": &schema.Schema{
