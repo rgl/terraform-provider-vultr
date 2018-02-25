@@ -21,6 +21,7 @@ func Provider() terraform.ResourceProvider {
 			"vultr_server":     resourceVultrServer(),
 			"vultr_ssh_key":    resourceVultrSSHKey(),
 			"vultr_dns_domain": resourceVultrDNSDomain(),
+			"vultr_dns_record": resourceVultrDNSRecord(),
 		},
 
 		ConfigureFunc: providerConfigure,

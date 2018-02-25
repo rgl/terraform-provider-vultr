@@ -28,6 +28,13 @@ resource "vultr_dns_domain" "example" {
   ipv4_address = "${vultr_server.example.ipv4_address}"
 }
 
+resource "vultr_dns_record" "test" {
+  domain = "${vultr_dns_domain.example.name}"
+  type = "A"
+  name = "test"
+  data = "${vultr_server.example.ipv4_address}"
+}
+
 resource "vultr_server" "example" {
   name = "example created from terraform"
 
